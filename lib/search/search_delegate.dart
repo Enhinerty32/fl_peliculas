@@ -4,16 +4,17 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class MovieSearchDelegate extends SearchDelegate {
+  @override
   String? get searchFieldLabel => 'Buscar Pelicula';
   @override
   List<Widget>? buildActions(BuildContext context) {
-    return [IconButton(onPressed: () => query = '', icon: Icon(Icons.clear))];
+    return [IconButton(onPressed: () => query = '', icon: const Icon(Icons.clear))];
   }
 
   @override
   Widget? buildLeading(BuildContext context) {
     return IconButton(
-        onPressed: () => close(context, null), icon: Icon(Icons.arrow_back));
+        onPressed: () => close(context, null), icon: const Icon(Icons.arrow_back));
   }
 
   @override
@@ -100,7 +101,7 @@ class _MovieItems extends StatelessWidget {
           tag: movie.heroId!,
           child: FadeInImage(
             image: NetworkImage(movie.fullPosterImg),
-            placeholder: AssetImage('assets/no-image.jpg'),
+            placeholder: const AssetImage('assets/no-image.jpg'),
             width: 50,
             fit: BoxFit.contain,
           ),

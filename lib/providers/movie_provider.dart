@@ -20,12 +20,12 @@ class MoviesProvider extends ChangeNotifier {
   Map<int, List<Cast>> movieCast = {};
 
   final bebouncer = Debouncer(
-    duration: Duration(milliseconds: 500),
+    duration: const Duration(milliseconds: 500),
     onValue: (value) {},
   );
 
   final StreamController<List<Movie>> _suggestionStreamController =
-      new StreamController.broadcast();
+      StreamController.broadcast();
 
   Stream<List<Movie>> get suggestionStream =>
       _suggestionStreamController.stream;
@@ -38,7 +38,7 @@ class MoviesProvider extends ChangeNotifier {
     getPopularMovie();
   }
   Future<String> _getJsonData(
-      {required String categoryUrl, int? page: 1, String? query}) async {
+      {required String categoryUrl, int? page = 1, String? query}) async {
     final url = Uri.https(_baseUrl, categoryUrl, {
       'api_key': _apiKey,
       'language': _language,
@@ -117,12 +117,12 @@ class MoviesProvider extends ChangeNotifier {
     bebouncer.value = '';
     bebouncer.onValue = (value) async {
       print('tenemos valor a buscar: $value');
-      final result = await this.getSearchMovie(searchTerm);
-      this._suggestionStreamController.add(result);
+      final result = await getSearchMovie(searchTerm);
+      _suggestionStreamController.add(result);
     };
-    final timer = Timer.periodic(Duration(milliseconds: 300), (_) {
+    final timer = Timer.periodic(const Duration(milliseconds: 300), (_) {
       bebouncer.value = searchTerm;
     });
-    Future.delayed(Duration(milliseconds: 301)).then((_) => timer.cancel());
+    Future.delayed(const Duration(milliseconds: 301)).then((_) => timer.cancel());
   }
 }

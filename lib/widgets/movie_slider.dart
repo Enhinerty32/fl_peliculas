@@ -41,7 +41,7 @@ class _MoviesSliderState extends State<MoviesSlider> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: double.infinity,
       height: 280,
       child: Column(
@@ -63,7 +63,7 @@ class _MoviesSliderState extends State<MoviesSlider> {
             scrollDirection: Axis.horizontal,
             itemBuilder: (_, int i) => _MoviePosters(
               movie: widget.movies[i],
-              hero: 'Slider-${i}-${widget.movies[i].id}',
+              hero: 'Slider-$i-${widget.movies[i].id}',
             ),
             itemCount: widget.movies.length,
           ))
